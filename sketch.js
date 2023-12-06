@@ -3,8 +3,8 @@ var font;
 var button;
 //counters
   var score = 0;
-  var songTime = 182; //song length = 3min., 2sec. -> 182000 ms -> 182 sec
-  var countDown;    //time limit - amount of time passed
+  var songTime = 182; //song length = 3min., 2sec. -> 182000 ms -> 182 sec (converter)
+  var countDown;    //time limit - amount of time passed (subtraction equation)
 //mp3
   var song, intro;
 //music note hits
@@ -33,14 +33,6 @@ function preload(){
 function setup() {
   createCanvas(1200, 630);
   frameRate(60); //sets number of frames displayed
-
-  /*
-  // Create play button
-    playButton = createButton('PLAY');
-    playButton.position(250, 475);
-    playButton.size(140, 100);
-    playButton.mousePressed(playIT);
-  */
 }
 
 function draw() {
@@ -55,12 +47,6 @@ function draw() {
     }
 }
 
-/*
-function changeSceen(){
-  screen = 1;
-}
-*/
-
 function startScreen(){
   background(startup);
 
@@ -71,49 +57,25 @@ function startScreen(){
     text('Happy Cloud', 5, 200);
     text('Catcher', 100, 330);
 
-  //cloud button
-    let PLAY = image(counter, 205, 365, 200, 100);
-
+  //click anywhere text
+    fill(95, 43, 140);
+    textFont(font);
     textSize(50);
-    text('PLAY', 260, 440);
-
-    if (PLAY.rollover(mouseX, mouseY)){
-      PLAY.changColor(255, 0, 0);
-    } else {
-      fill(0);
-    }
-
-
-
-    if (PLAY.mousePressed){
-      screen == 1; 
-    }
-    
-
-  /*
-  //button
-    button = createButton('PLAY');
-    button.position(320, 475);
-    button.size(140, 100);
-    //button.mousePressed(intro.play());
-    button.mousePressed(playIT);
-*/
-  //scoreBoard();
-  //playIT();
-  //endScreen();
-
-  /*
-  //makes sure button on start screen loads player into playIT
-    screen = 1;
-    buttonState = "active";
-    playButton.hide();
-    playAgainButton.hide();
-    */
+    text('(Click Anywhere to Begin)', 80, 380);
 }
 
 function playIT(){
   background(stage);
-  //song.play();
+  screen = 1;
+  
+  //sound/song settings
+    //song.play();
+
+    if (!song.isPlaying()){
+      song.play();
+    } else {
+      song.stop();
+    }
 
 
 
@@ -137,14 +99,6 @@ function playIT(){
     
   //catcher
     image(cursor, mouseX, height-50, 50, 50);  
-  /* 
-  //makes sure button on start screen loads player into playIT
-    screen = 1;
-    buttonState = "null";
-    playButton.hide();
-    playAgainButton.hide();
-    //button.hide();
-  */
 }
 
 function endScreen(){
@@ -156,52 +110,35 @@ function endScreen(){
     text('GAME OVER', 570, 180);
     text("Final Score = " + score, 555, height/2 + 25);
 
-  //Button
-    button = createButton('PLAY AGAIN?');
-    button.position(500, 485);
-    button.size(140, 100);
-    button.mousePressed(playIT);
-
-  //makes sure button on start screen loads player into playIT
-    screen = 2;
-    buttonState = "active";
-    playButton.hide();
-    playAgainButton.hide();
-    //button.hide();
+  //click anywhere text
+    fill(237, 198, 24);
+    textFont(font);
+    textSize(50);
+    text('(Click Anywhere to Replay)', 540, 390);
 }
 
 function spawnClouds(){
    //image(droplet, x, y);
 }
 
-/*
-function button.mousePressed(){
+
+function mousePressed(){
   if(screen == 0){
     screen = 1;
   } else if (screen == 2) {
     screen = 0;
   }
 }
-*/
 
 function scoreBoard(){
   score = 0;
   speed = 2;
   y = -20;
 }
-/*
-class playB{
-  changeColor(bright){
-    this.brightness = bright;
-    rollover(){
-      let d = dist();
-    }
-  }
-}
-*/
+
 function timer(){
     //convert  ms to sec
-      var currentTime = int(millis() / 1000);
+      var currentTime = int(millis() / 5);
     //Counts numbers down
       countDown = songTime - currentTime;
 }
