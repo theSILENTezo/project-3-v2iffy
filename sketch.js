@@ -1,6 +1,10 @@
 var screen = 0;
 var font;
 var button;
+
+var x = 200;
+var y = -20;
+
 //counters
   var score = 0;
   var songTime = 182; //song length = 3min., 2sec. -> 182000 ms -> 182 sec (converter)
@@ -10,6 +14,10 @@ var button;
 //music note hits
   var right, left, mid; //positions
   var cursor, droplet;  //assets
+//music notes spawn
+  var spawnTimer = 2000;
+  var clouds = [];
+  var currentCloud = 0;
 //backgrounds
   var startup, stage, end;
 
@@ -70,13 +78,13 @@ function playIT(){
   
   //sound/song settings
     //song.play();
-
+    
     if (!song.isPlaying()){
       song.play();
     } else {
       song.stop();
     }
-
+    
 
 
   //score/timer area
@@ -99,10 +107,14 @@ function playIT(){
     
   //catcher
     image(cursor, mouseX, height-50, 50, 50);  
+
+  //spawn beats
+    spawnClouds();
 }
 
 function endScreen(){
   background(end);
+  screen = 2;
 
   //Text
     textSize(150);
@@ -117,8 +129,32 @@ function endScreen(){
     text('(Click Anywhere to Replay)', 540, 390);
 }
 
+//clouds go off every 2 sec
 function spawnClouds(){
-   //image(droplet, x, y);
+  /* 
+  var smiley = image(droplet, x, y);
+
+   if (millis() > spawnTimer){
+      clouds[currentCloud] = new Clouds();
+      currentCloud++;
+      spawnTimer+=2000;
+   }
+  */
+   if ((millis() >= 0) && (millis() <= 1000)) {
+    //box1n = 20
+    //box1m = -110
+    //box1m = box1m + 2
+  }
+  
+}
+
+
+//drops the clouds from top to bottom
+class Clouds{
+  constructor(){
+    this.postion = createVector(5, 10);
+    this.size = smiley;
+  }
 }
 
 
@@ -138,7 +174,7 @@ function scoreBoard(){
 
 function timer(){
     //convert  ms to sec
-      var currentTime = int(millis() / 5);
+      var currentTime = int(millis() / 1000);
     //Counts numbers down
       countDown = songTime - currentTime;
 }
