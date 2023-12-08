@@ -16,8 +16,8 @@ var y = -20;
   var cursor, droplet;  //assets
 //music notes spawn
   var spawnTimer = 2000;
-  var clouds = [];
-  var currentCloud = 0;
+  //var clouds = [];
+  //var currentCloud = 0;
 //backgrounds
   var startup, stage, end;
 
@@ -31,6 +31,7 @@ function preload(){
     stage = loadImage("images/canvas.jpeg");
     cursor = loadImage("images/bob_ross_head.gif");
     droplet = loadImage("images/cloudy_icon.gif");
+      //var mark = image(droplet, 50, 20);
     end = loadImage("images/end.jpg");
     counter = loadImage("images/score_counter.gif");
 
@@ -51,6 +52,7 @@ function draw() {
       playIT();
     } else if (screen == 2 || countDown < 0){
       countDown = 0;
+      song.stop();
       endScreen();
     }
 }
@@ -75,15 +77,22 @@ function startScreen(){
 function playIT(){
   background(stage);
   screen = 1;
+
+  ellipse(x,y,20,20);
   
   //sound/song settings
     //song.play();
+    //song.setVolume(0.5);
+
     
-    if (!song.isPlaying()){
-      song.play();
-    } else {
-      song.stop();
-    }
+    // if (!song.isPlaying()){
+    //   //song.play();
+    //   print("song is playing")
+    // } else {
+    //   //song.stop();
+    //   print("song is not playing")
+    // }
+   
     
 
 
@@ -109,7 +118,16 @@ function playIT(){
     image(cursor, mouseX, height-50, 50, 50);  
 
   //spawn beats
-    spawnClouds();
+    //spawnClouds();
+    if(y==-20){
+      pickRandom();
+    }
+
+    if(y>height-10 && x>mouseX-20 && x<mouseX+20){
+      y=-20
+      speed+=.5
+      score+= 1
+    }
 }
 
 function endScreen(){
@@ -129,26 +147,8 @@ function endScreen(){
     text('(Click Anywhere to Replay)', 540, 390);
 }
 
-//clouds go off every 2 sec
-function spawnClouds(){
-  /* 
-  var smiley = image(droplet, x, y);
 
-   if (millis() > spawnTimer){
-      clouds[currentCloud] = new Clouds();
-      currentCloud++;
-      spawnTimer+=2000;
-   }
-  */
-   if ((millis() >= 0) && (millis() <= 1000)) {
-    //box1n = 20
-    //box1m = -110
-    //box1m = box1m + 2
-  }
-  
-}
-
-
+/*
 //drops the clouds from top to bottom
 class Clouds{
   constructor(){
@@ -156,10 +156,12 @@ class Clouds{
     this.size = smiley;
   }
 }
-
+*/
 
 function mousePressed(){
   if(screen == 0){
+    song.play();
+    song.setVolume(0.2);
     screen = 1;
   } else if (screen == 2) {
     screen = 0;
@@ -174,7 +176,12 @@ function scoreBoard(){
 
 function timer(){
     //convert  ms to sec
-      var currentTime = int(millis() / 1000);
+      var currentTime = int(millis() / 100);
     //Counts numbers down
       countDown = songTime - currentTime;
+      //song.stop();
+}
+
+function pickRandom(){
+	x= random(20,width-20)
 }
