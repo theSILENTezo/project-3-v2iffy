@@ -7,6 +7,8 @@ function spawnClouds(){
 
     image(droplet, x, y, 50, 30);  
 
+    print("loads in");
+
     if(y==-50){
       pickRandom();
     }

@@ -15,7 +15,6 @@ var font;
   //drop effect
     var x = 200;
     var y = -50;
-    var mark;
 //backgrounds
   var startup, stage, end;
 
@@ -77,20 +76,21 @@ function playIT(){
   screen = 1;
   
   //spawn beats
-    //spawnClouds();
-   
-    y+= speed;
+    spawnClouds();
 
-    image(droplet, x, y, 50, 30);
+   /*
+   //Test to see if cloud beats load in
+      y+= speed;
 
-    if(y==-50){
-      pickRandom();
-    }
-    
+      image(droplet, x, y, 50, 30);
+
+      if(y==-50){
+        pickRandom();
+      }
+    */
     //if clouds land in the catcher give points
       if(y>height-50 && x>mouseX-50 && x<mouseX+50){
         y=-50;
-        //speed+=.5
         score+= 100;
       }
   
@@ -157,6 +157,9 @@ function timer(){
       countDown = songTime - currentTime;
 }
 
+
+//spawns the cloud beats into random spots
+//from the top then drops them
 function pickRandom(){
 	x= random(50,width-50)
   print("do it");
