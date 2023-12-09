@@ -160,6 +160,5 @@ function timer(){
 //spawns the cloud beats into random spots
 //from the top then drops them
 function pickRandom(){
-  x= random(50,width-50)
-  print("do it");
+  x= random(50,width-50);
 }
