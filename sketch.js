@@ -1,10 +1,5 @@
 var screen = 0;
 var font;
-var button;
-
-var x = 200;
-var y = -20;
-
 //counters
   var score = 0;
   var songTime = 182; //song length = 3min., 2sec. -> 182000 ms -> 182 sec (converter)
@@ -16,8 +11,11 @@ var y = -20;
   var cursor, droplet;  //assets
 //music notes spawn
   var spawnTimer = 2000;
-  //var clouds = [];
-  //var currentCloud = 0;
+  var speed = 5;
+  //drop effect
+    var x = 200;
+    var y = -20;
+    var mark;
 //backgrounds
   var startup, stage, end;
 
@@ -25,13 +23,12 @@ function preload(){
   //songs/tune
     song = loadSound("sounds/Happy_Little_Clouds.mp3");
     intro = loadSound("sounds/screen_intro.mp3");
-  
+
   //images
     startup = loadImage("images/bob_ross.jpeg");
     stage = loadImage("images/canvas.jpeg");
     cursor = loadImage("images/bob_ross_head.gif");
     droplet = loadImage("images/cloudy_icon.gif");
-      //var mark = image(droplet, 50, 20);
     end = loadImage("images/end.jpg");
     counter = loadImage("images/score_counter.gif");
 
@@ -50,6 +47,7 @@ function draw() {
       startScreen();
     } else if(screen == 1){
       playIT();
+      spawnClouds();
     } else if (screen == 2 || countDown < 0){
       countDown = 0;
       song.stop();
@@ -67,7 +65,7 @@ function startScreen(){
     text('Happy Cloud', 5, 200);
     text('Catcher', 100, 330);
 
-  //click anywhere text
+  //"click anywhere" text
     fill(95, 43, 140);
     textFont(font);
     textSize(50);
@@ -77,57 +75,51 @@ function startScreen(){
 function playIT(){
   background(stage);
   screen = 1;
-
-  ellipse(x,y,20,20);
   
-  //sound/song settings
-    //song.play();
-    //song.setVolume(0.5);
-
-    
-    // if (!song.isPlaying()){
-    //   //song.play();
-    //   print("song is playing")
-    // } else {
-    //   //song.stop();
-    //   print("song is not playing")
-    // }
-   
-    
-
+  //spawn beats
+    //spawnClouds();
 
   //score/timer area
     image(counter, width/2 - 190, 10, 400, 200);
 
   //live score
-    textSize(75);
+    textSize(45);
     text("score = " + score, width/2 - 100, 160);
   //Timer
     timer();
     textSize(50);
     fill('red');
     text("Time = " + countDown, width/2 - 90, 100);
-
-    //when time read 0 go to endScreen
+  
+    //when time reads 0 go to endScreen
       if (screen == 2 || countDown < 0){
       countDown = 0;
       endScreen();
       }
-    
+  
   //catcher
-    image(cursor, mouseX, height-50, 50, 50);  
+    image(cursor, mouseX, height-50, 50, 50); 
 
-  //spawn beats
-    //spawnClouds();
-    if(y==-20){
+  //beats
+    /*
+    y+= speed;
+
+    ellipse(x,y,20,20);  
+
+    if(y==-50){
       pickRandom();
-    }
 
-    if(y>height-10 && x>mouseX-20 && x<mouseX+20){
-      y=-20
-      speed+=.5
-      score+= 1
     }
+    */
+    //if clouds land in the catcher give points
+      if(y>height-50 && x>mouseX-50 && x<mouseX+50){
+        y=-50;
+        //speed+=.5
+        score+= 100;
+      }
+
+
+
 }
 
 function endScreen(){
@@ -140,28 +132,17 @@ function endScreen(){
     text('GAME OVER', 570, 180);
     text("Final Score = " + score, 555, height/2 + 25);
 
-  //click anywhere text
+  //"click anywhere" text
     fill(237, 198, 24);
     textFont(font);
     textSize(50);
     text('(Click Anywhere to Replay)', 540, 390);
 }
 
-
-/*
-//drops the clouds from top to bottom
-class Clouds{
-  constructor(){
-    this.postion = createVector(5, 10);
-    this.size = smiley;
-  }
-}
-*/
-
 function mousePressed(){
   if(screen == 0){
     song.play();
-    song.setVolume(0.2);
+    song.setVolume(0.5);
     screen = 1;
   } else if (screen == 2) {
     screen = 0;
@@ -171,17 +152,16 @@ function mousePressed(){
 function scoreBoard(){
   score = 0;
   speed = 2;
-  y = -20;
+  y = -50;
 }
 
 function timer(){
     //convert  ms to sec
-      var currentTime = int(millis() / 100);
+      var currentTime = int(millis() / 1000);
     //Counts numbers down
       countDown = songTime - currentTime;
-      //song.stop();
 }
 
 function pickRandom(){
-	x= random(20,width-20)
+	x= random(200,width-200)
 }
