@@ -11,10 +11,10 @@ var font;
   var cursor, droplet;  //assets
 //music notes spawn
   var spawnTimer = 2000;
-  var speed = 5;
+  var speed = 10;
   //drop effect
     var x = 200;
-    var y = -20;
+    var y = -50;
     var mark;
 //backgrounds
   var startup, stage, end;
@@ -47,7 +47,7 @@ function draw() {
       startScreen();
     } else if(screen == 1){
       playIT();
-      spawnClouds();
+      //spawnClouds();
     } else if (screen == 2 || countDown < 0){
       countDown = 0;
       song.stop();
@@ -78,7 +78,22 @@ function playIT(){
   
   //spawn beats
     //spawnClouds();
+   
+    y+= speed;
 
+    image(droplet, x, y, 50, 30);
+
+    if(y==-50){
+      pickRandom();
+    }
+    
+    //if clouds land in the catcher give points
+      if(y>height-50 && x>mouseX-50 && x<mouseX+50){
+        y=-50;
+        //speed+=.5
+        score+= 100;
+      }
+  
   //score/timer area
     image(counter, width/2 - 190, 10, 400, 200);
 
@@ -99,27 +114,6 @@ function playIT(){
   
   //catcher
     image(cursor, mouseX, height-50, 50, 50); 
-
-  //beats
-    /*
-    y+= speed;
-
-    ellipse(x,y,20,20);  
-
-    if(y==-50){
-      pickRandom();
-
-    }
-    */
-    //if clouds land in the catcher give points
-      if(y>height-50 && x>mouseX-50 && x<mouseX+50){
-        y=-50;
-        //speed+=.5
-        score+= 100;
-      }
-
-
-
 }
 
 function endScreen(){
@@ -144,6 +138,7 @@ function mousePressed(){
     song.play();
     song.setVolume(0.5);
     screen = 1;
+    pickRandom();
   } else if (screen == 2) {
     screen = 0;
   }
@@ -163,5 +158,6 @@ function timer(){
 }
 
 function pickRandom(){
-	x= random(200,width-200)
+	x= random(50,width-50)
+  print("do it");
 }
