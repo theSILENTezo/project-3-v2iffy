@@ -12,10 +12,6 @@ function spawnClouds(){
       image(droplet, x, y, 50, 30);  
 
       print(newBeat);
-
-      if(y==-50){
-        pickRandom();
-      }
     }
   }
 }

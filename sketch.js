@@ -77,21 +77,20 @@ function playIT(){
   
   //spawn beats
     spawnClouds();
-
-   /*
+  /*
    //Test to see if cloud beats load in
       y+= speed;
 
       image(droplet, x, y, 50, 30);
-
-      if(y==-50){
-        pickRandom();
-      }
     */
     //if clouds land in the catcher give points
       if(y>height-50 && x>mouseX-50 && x<mouseX+50){
         y=-50;
         score+= 100;
+      }
+    //respawn another at a random locaton, then drop
+      if(y==-50){
+        pickRandom();
       }
   
   //score/timer area
@@ -161,6 +160,6 @@ function timer(){
 //spawns the cloud beats into random spots
 //from the top then drops them
 function pickRandom(){
-	x= random(50,width-50)
+  x= random(50,width-50)
   print("do it");
 }
