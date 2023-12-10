@@ -78,7 +78,7 @@ function playIT(){
   //spawn beats
     spawnClouds();
 
-  
+  /*
    //Test to see if cloud beats load in
       y+= speed;
 
