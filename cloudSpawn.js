@@ -8,7 +8,7 @@ function spawnClouds(){
     if (newBeat = countDown){
       y+= speed;
 
-      image(droplet, x, y, 50, 30);  
+      image(droplet, xPos, y, 50, 30);  
 
       print(newBeat);
     }

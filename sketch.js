@@ -11,9 +11,9 @@ var font;
   var cursor, droplet;  //assets
 //music notes spawn
   var spawnTimer = 2000;
-  var speed = 10;
+  var speed = 0.08;
   //drop effect
-    var x = 200;
+    let xPos = 200;
     var y = -50;
 //backgrounds
   var startup, stage, end;
@@ -77,14 +77,15 @@ function playIT(){
   
   //spawn beats
     spawnClouds();
-  /*
+
+  
    //Test to see if cloud beats load in
       y+= speed;
 
-      image(droplet, x, y, 50, 30);
-    */
+      image(droplet, xPos, y, 50, 30);
+    //*/
     //if clouds land in the catcher give points
-      if(y>height-50 && x>mouseX-50 && x<mouseX+50){
+      if(y>height-50 && xPos>mouseX-50 && xPos<mouseX+50){
         y=-50;
         score+= 100;
       }
@@ -160,5 +161,5 @@ function timer(){
 //spawns the cloud beats into random spots
 //from the top then drops them
 function pickRandom(){
-  x= random(50,width-50);
+  xPos= random(50,width-50);
 }
